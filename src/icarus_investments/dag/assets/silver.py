@@ -1,4 +1,3 @@
-import ibis
 import dagster
 import ibis.selectors as s
 

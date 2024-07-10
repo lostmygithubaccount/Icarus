@@ -67,3 +67,7 @@ open-dag:
 # config
 config:
     @code src/icarus_investments/dag/config.py
+
+# pres
+pres:
+    @quarto preview pres.qmd
