@@ -3,9 +3,7 @@ datalake
 *.excalidraw
 
 .quarto
-pres.qmd
 pres.html
 pres_files
-
 
 /.quarto/

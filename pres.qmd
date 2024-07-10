@@ -1,0 +1,55 @@
+---
+title: "Icarus Investments"
+subtitle: "***Composable data system solution accelerator*** (CDSSA)"
+execute:
+  echo: true
+format:
+  revealjs:
+    # preview-links: true
+    chalkboard: true
+    incremental: true
+    # https://quarto.org/docs/presentations/revealjs/themes.html#using-themes
+    theme: dark
+    scrollable: true
+    # smaller: true
+---
+
+# why
+
+## Conference talk(s), videos, blogs
+
+- "how we built a fictional company's composable data system, processing XTBs of data per day on GPUs"
+    - "geospatial operations on..."
+    - "streaming..."
+    - "lightning talk: UDFs for generating synthetic data..."
+    - "a composable language-to-SQL system..."
+    - "rapid experimentation with IbisML on..."
+    - punchline can be: "we ran it on DuckDB, now let's run it on X" where X=Theseus or a conference's backend
+
+# what
+
+## Icarus Investments
+
+Icarus Investments is a (fictional) upstart in the financial industry poised to revolutionize how data/AI.
+
+## Data product goals
+
+Critical to Icarus’s commercial offering is their internal data platform, which is responsible for several data products:
+
+1. **Lakehouse:** modern lakehouse architecture using the best composable data OSS tools
+2. **Business intelligence:** analytics and insights based on historical data
+3. **Predictive intelligence:** analytics and insights based on current data
+
+## Data & AI team
+
+The data and AI team consists of:
+
+- the data engineer
+- the data analyst
+- the machine learning engineer
+
+# how
+
+## Architecture
+
+tbd

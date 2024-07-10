@@ -9,7 +9,7 @@ allow-direct-references = true
 name = "icarus-investments"
 version = "0.1.0"
 authors = [{ name = "Cody", email = "cody@dkdc.dev" }]
-description = "Icarus Investments template project"
+description = "Composable data system template project"
 readme = "readme.md"
 requires-python = ">=3.9"
 classifiers = [
