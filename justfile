@@ -50,8 +50,8 @@ release:
 clean-dist:
     @rm -rf dist
 
-# clean data
-clean-data:
+# clean lake
+clean-lake:
     @rm -rf datalake/bronze
     @rm -rf datalake/silver
     @rm -rf datalake/gold
@@ -59,6 +59,11 @@ clean-data:
 # clean raw
 clean-raw:
     @rm -rf datalake/raw
+
+# clean data
+clean-data:
+    just clean-raw
+    just clean-lake
 
 # open-dag
 open-dag:

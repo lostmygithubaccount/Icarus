@@ -136,6 +136,17 @@ def _social_media_post(
 
 
 # functions
+def _write_batch(batch, table_name, data_dir=DATA_DIR, raw_data_dir=RAW_DATA_DIR):
+    batch.to_parquet(
+        os.path.join(
+            data_dir,
+            raw_data_dir,
+            table_name,
+            f"{time.time()}+{uuid.uuid4()}.parquet",
+        ),
+    )
+
+
 def gen_buy_sell_batch(seed_table=seed_table):
     buy_sell_data = (
         seed_table.mutate(
@@ -145,15 +156,9 @@ def gen_buy_sell_batch(seed_table=seed_table):
                 trend=seed_table["trend"],
             )
         )
-        .mutate(ibis._["buy_sell"].unnest())
-        .unpack("buy_sell")
     ).drop("name", "base_price", "shares_total", "trend")
 
-    buy_sell_data.to_parquet(
-        os.path.join(
-            DATA_DIR, RAW_DATA_DIR, "buy_sell", f"{time.time()}+{uuid.uuid4()}.parquet"
-        ),
-    )
+    _write_batch(buy_sell_data, "buy_sell")
 
 
 def gen_social_media_batch(seed_table=seed_table):
@@ -161,11 +166,4 @@ def gen_social_media_batch(seed_table=seed_table):
         social_media_post=_social_media_post(seed_table["ticker"])
     )
 
-    social_media_data.to_parquet(
-        os.path.join(
-            DATA_DIR,
-            RAW_DATA_DIR,
-            "social_media",
-            f"{time.time()}+{uuid.uuid4()}.parquet",
-        ),
-    )
+    _write_batch(social_media_data, "social_media")
