@@ -28,15 +28,17 @@ Separate the query UI from the query engine.
 
 ![UI to engine](img/ui-to-engine.png)
 
-## Reference implementations
+## Production implementations
 
 Composable data systems:
 
 ::: {.incremental}
-- are in a 0 to 1 phase
 - general agreeement on usefulness...
 - ...but a lack of production implementations
+- we are in a 0 to 1 phase
 - a good reference implementation accelerates real solutions
+- real solutions inform a good reference implementation
+- ...flywheel!
 :::
 
 ## Conference talks, blogs, videos, etc.
@@ -91,6 +93,8 @@ We use composable open standards with an emphasis on Python.
 1. ***UI***: **Ibis** or SQL or dplyr
 2. ***Engine***: **DuckDB** or any other Ibis backend
 3. ***Storage***: **Delta Lake** or Iceberg or Hudi
+
+There will be other components like orchestration frameworks, visualize libraries, dashboarding tools, etc.
 :::
 
 ::::
@@ -152,7 +156,18 @@ from icarus_investments.dag.config import (
     RAW_BUY_SELL_TABLE,
     RAW_SOCIAL_MEDIA_TABLE,
 )
+```
 
+The data must:
+
+- be random and infinitely generatable
+- contain interesting statistical patterns for downstream use cases 
+
+## synthetic data
+
+Use table-valued UDFs to generate synthetic data.
+
+```{python}
 data_glob = os.path.join(DATA_DIR, RAW_DATA_DIR, RAW_BUY_SELL_TABLE, "*.parquet")
 buy_sell_table = ibis.read_parquet(data_glob)
 buy_sell_table
@@ -211,8 +226,8 @@ We need to:
 
 Some ideas include:
 
-- add geospatial data and operations
-- add cybersecurity data and operations
+- **add geospatial data and operations**
+- **add cybersecurity data and operations**
 - add a website/documentation
 - setup proper data catalog
 - setup Ibis Substrait demonstration (computational storage?)
