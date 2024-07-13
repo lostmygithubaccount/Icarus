@@ -9,7 +9,11 @@ class Catalog:
         self.data_dir = data_dir
 
     def list_groups(self):
-        return [d for d in os.listdir(self.data_dir) if not d.startswith("_")]
+        return [
+            d
+            for d in os.listdir(self.data_dir)
+            if not (d.startswith("_") or d.startswith("."))
+        ]
 
     def list_tables(self, group):
         return [d.split(".")[0] for d in os.listdir(os.path.join(self.data_dir, group))]

@@ -1,6 +1,7 @@
 import dagster
 
 
+# gold data assets
 @dagster.asset()
 def gold_buy_sell(silver_buy_sell):
     """Gold ticker buy/sell data."""

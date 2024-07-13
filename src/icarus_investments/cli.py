@@ -27,6 +27,9 @@ def gen_data():
     except KeyboardInterrupt:
         typer.echo("stopping...")
 
+    except Exception as e:
+        typer.echo(f"error: {e}")
+
 
 @app.command()
 def gui():

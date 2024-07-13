@@ -6,6 +6,7 @@ from dagster import ConfigurableIOManager
 from icarus_investments.dag.config import BRONZE, CLOUD, BUCKET, DATA_DIR
 
 
+# define IO manager(s)
 class DeltaLakeIOManager(ConfigurableIOManager):
     """
     Manage tables as Delta Lake tables.
@@ -49,4 +50,5 @@ class DeltaLakeIOManager(ConfigurableIOManager):
         return group_name, dirname, filename
 
 
+# set default IO manager
 resources = {"io_manager": DeltaLakeIOManager()}

@@ -7,58 +7,29 @@ import ibis.expr.datatypes as dt
 from faker import Faker
 from datetime import datetime
 
-from icarus_investments.dag.config import DATA_DIR, RAW_DATA_DIR
+from icarus_investments.seed import data
+from icarus_investments.dag.config import (
+    DATA_DIR,
+    RAW_DATA_DIR,
+    RAW_BUY_SELL_TABLE,
+    RAW_SOCIAL_MEDIA_TABLE,
+)
 
+# setup faker
 fake = Faker()
 
+# create directories
 os.makedirs(os.path.join(DATA_DIR, RAW_DATA_DIR), exist_ok=True)
 os.makedirs(os.path.join(DATA_DIR, RAW_DATA_DIR, "buy_sell"), exist_ok=True)
 os.makedirs(os.path.join(DATA_DIR, RAW_DATA_DIR, "social_media"), exist_ok=True)
 
-seed_data = {
-    "tickers": [
-        {
-            "ticker": "AA",
-            "name": "Apache Arrow",
-            "shares_total": 10_000_000,
-            "base_price": 100.0,
-            "trend": "down",
-        },
-        {
-            "ticker": "IBIS",
-            "name": "Ibis project",
-            "shares_total": 100_000_000,
-            "base_price": 150.0,
-            "trend": "up",
-        },
-        {
-            "ticker": "II",
-            "name": "Icarus Investments",
-            "shares_total": 500_000,
-            "base_price": 3_000.0,
-            "trend": "up",
-        },
-        {
-            "ticker": "SUBS",
-            "name": "Substrait",
-            "shares_total": 1_000_000,
-            "base_price": 1_000.0,
-            "trend": "down",
-        },
-        {
-            "ticker": "VODA",
-            "name": "Voltron Data",
-            "shares_total": 1_000_000,
-            "base_price": 2_500.0,
-            "trend": "flat",
-        },
-    ]
-}
+# read seed data into table
 seed_table = (
-    ibis.memtable(seed_data)["tickers"]
-    .lift()
+    ibis.memtable(data)
+    .unpack("tickers")
     .select(
         "ticker",
+        ibis._["type"].name("sector"),  # work around column name conflict
         "name",
         "base_price",
         "shares_total",
@@ -66,6 +37,7 @@ seed_table = (
     )
 )
 
+# enforce seed data constraints
 assert (
     seed_table.count().to_pyarrow().as_py()
     == seed_table["ticker"].nunique().to_pyarrow().as_py()
@@ -75,7 +47,11 @@ assert (
 # udfs
 @ibis.udf.scalar.python
 def _buy_sell(
-    base_price: float, shares_total: int, trend: str, batch_size: int = 2**7
+    base_price: float,
+    shares_total: int,
+    sector: str,
+    trend: str,
+    batch_size: int = 2**7,
 ) -> dt.Array(
     dt.Struct(
         {
@@ -87,6 +63,10 @@ def _buy_sell(
         }
     )
 ):
+    """
+    Generate records of buy/sell data
+    """
+
     now = datetime.now()
 
     if trend == "up":
@@ -117,6 +97,7 @@ def _buy_sell(
 @ibis.udf.scalar.python
 def _social_media_post(
     ticker: str,
+    sector: str,
 ) -> dt.Struct(
     {
         "timestamp": datetime,
@@ -124,11 +105,15 @@ def _social_media_post(
         "location": list[str],
     }
 ):
+    """
+    Generate records of social media post data
+    """
+
     now = datetime.now()
 
     res = {
         "timestamp": now,
-        "content": f"on {ticker}: {fake.sentence()}",
+        "content": f"on {ticker} in {sector}: {fake.sentence()}",
         "location": fake.location_on_land(),
     }
 
@@ -152,18 +137,21 @@ def gen_buy_sell_batch(seed_table=seed_table):
         seed_table.mutate(
             buy_sell=_buy_sell(
                 base_price=seed_table["base_price"],
+                sector=seed_table["sector"],
                 shares_total=seed_table["shares_total"],
                 trend=seed_table["trend"],
             )
         )
     ).drop("name", "base_price", "shares_total", "trend")
 
-    _write_batch(buy_sell_data, "buy_sell")
+    _write_batch(buy_sell_data, RAW_BUY_SELL_TABLE)
 
 
 def gen_social_media_batch(seed_table=seed_table):
-    social_media_data = seed_table.select("ticker").mutate(
-        social_media_post=_social_media_post(seed_table["ticker"])
+    social_media_data = seed_table.select("ticker", "sector").mutate(
+        social_media_post=_social_media_post(
+            ticker=seed_table["ticker"], sector=seed_table["sector"]
+        )
     )
 
-    _write_batch(social_media_data, "social_media")
+    _write_batch(social_media_data, RAW_SOCIAL_MEDIA_TABLE)
