@@ -18,7 +18,9 @@ cd icarus-investments
 
 Setup a Python virtual environment (an exercise left to the reader).
 
-You should probably install `just` and use the commands in the [`justfile`](justfile) like `just setup`. Alternatively, you can:
+You should probably install `just` and use the commands in the [`justfile`](justfile) like `just setup`.
+
+Alternatively, you can:
 
 ```bash
 pip install -r dev-requirements.txt
