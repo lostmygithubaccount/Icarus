@@ -36,10 +36,10 @@ Composable data systems:
 - are in a 0 to 1 phase
 - general agreeement on usefulness...
 - ...but a lack of production implementations
-- reference implementation accelerators real solutions
+- a good reference implementation accelerates real solutions
 :::
 
-## Conference talk(s), blogs, videos, etc.
+## Conference talks, blogs, videos, etc.
 
 We use the solution accelerator to generate various content.
 
@@ -134,7 +134,7 @@ ibis.options.interactive = True
 Stored as a Python dictionary.
 
 ```{python}
-from icarus_investments.seed import data
+from icarus_investments.dag.assets.seed import data
 
 print(data)
 ```
@@ -174,7 +174,7 @@ Transform the raw data into a lakehouse.
 
 ```{python}
 from icarus_investments.dag.config import BRONZE, SILVER, GOLD
-from icarus_investments.catalog import Catalog
+from icarus_investments.dag.resources import Catalog
 
 catalog = Catalog()
 catalog.list_groups()
@@ -212,6 +212,7 @@ We need to:
 Some ideas include:
 
 - add geospatial data and operations
+- add cybersecurity data and operations
 - add a website/documentation
 - setup proper data catalog
 - setup Ibis Substrait demonstration (computational storage?)
