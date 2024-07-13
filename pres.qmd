@@ -152,6 +152,9 @@ Use table-valued UDFs to generate synthetic data.
 ```{python}
 from icarus_investments.dag.config import (
     DATA_DIR,
+    BRONZE,
+    SILVER,
+    GOLD,
     RAW_DATA_DIR,
     RAW_BUY_SELL_TABLE,
     RAW_SOCIAL_MEDIA_TABLE,
@@ -188,7 +191,6 @@ social_media_table
 Transform the raw data into a lakehouse.
 
 ```{python}
-from icarus_investments.dag.config import BRONZE, SILVER, GOLD
 from icarus_investments.dag.resources import Catalog
 
 catalog = Catalog()
