@@ -27,17 +27,11 @@ def postprocess(t):
 def silver_buy_sell(bronze_buy_sell):
     """Silver ticker buy/sell data."""
 
-    # preprocessing
-    silver_buy_sell = bronze_buy_sell.pipe(preprocess)
+    def transform(t):
+        t = t.mutate(t["buy_sell"].unnest()).unpack("buy_sell")
+        return t
 
-    # extract nested records
-    silver_buy_sell = silver_buy_sell.mutate(ibis._["buy_sell"].unnest()).unpack(
-        "buy_sell"
-    )
-
-    # postprocessing
-    silver_buy_sell = silver_buy_sell.pipe(postprocess)
-
+    silver_buy_sell = bronze_buy_sell.pipe(preprocess).pipe(transform).pipe(postprocess)
     return silver_buy_sell
 
 
@@ -45,13 +39,11 @@ def silver_buy_sell(bronze_buy_sell):
 def silver_social_media(bronze_social_media):
     """Silver ticker social media data."""
 
-    # preprocessing
-    silver_social_media = bronze_social_media.pipe(preprocess)
+    def transform(t):
+        t = t.unpack("social_media_post")
+        return t
 
-    # extract nested records
-    silver_social_media = silver_social_media.unpack("social_media_post")
-
-    # postprocessing
-    silver_social_media = silver_social_media.pipe(postprocess)
-
+    silver_social_media = (
+        bronze_social_media.pipe(preprocess).pipe(transform).pipe(postprocess)
+    )
     return silver_social_media
