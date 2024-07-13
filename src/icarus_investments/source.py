@@ -7,13 +7,13 @@ import ibis.expr.datatypes as dt
 from faker import Faker
 from datetime import datetime
 
-from icarus_investments.seed import data
 from icarus_investments.dag.config import (
     DATA_DIR,
     RAW_DATA_DIR,
     RAW_BUY_SELL_TABLE,
     RAW_SOCIAL_MEDIA_TABLE,
 )
+from icarus_investments.dag.assets.seed import data
 
 # setup faker
 fake = Faker()
