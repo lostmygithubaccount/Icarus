@@ -7,49 +7,213 @@ format:
   revealjs:
     # preview-links: true
     chalkboard: true
-    incremental: true
+    incremental: false
     # https://quarto.org/docs/presentations/revealjs/themes.html#using-themes
     theme: dark
     scrollable: true
-    # smaller: true
+    smaller: true
 ---
 
 # why
 
-## Conference talk(s), videos, blogs
+## Composable data systems
 
-- "how we built a fictional company's composable data system, processing XTBs of data per day on GPUs"
-    - "geospatial operations on..."
-    - "streaming..."
-    - "lightning talk: UDFs for generating synthetic data..."
-    - "a composable language-to-SQL system..."
-    - "rapid experimentation with IbisML on..."
-    - punchline can be: "we ran it on DuckDB, now let's run it on X" where X=Theseus or a conference's backend
+Promising, but unimplemented.
+
+![layers](img/layers.png)
+
+## UIs and engines
+
+Separate the query UI from the query engine.
+
+![UI to engine](img/ui-to-engine.png)
+
+## Reference implementations
+
+Composable data systems:
+
+::: {.incremental}
+- are in a 0 to 1 phase
+- general agreeement on usefulness...
+- ...but a lack of production implementations
+- reference implementation accelerators real solutions
+:::
+
+## Conference talk(s), blogs, videos, etc.
+
+We use the solution accelerator to generate various content.
+
+- "how we built a fictional company's composable data system, processing X TBs of data per day on GPUs"
+- "geospatial operations on..."
+- "realtime streaming X GB/s to a dashboard..."
+- "lightning talk: UDFs for generating synthetic data..."
+- "a composable language-to-SQL system..."
+- "rapid experimentation with IbisML on..."
+- "how we added {small feature} to our data project"
+
+***A recurring narrative is useful for retention and engagement.***
 
 # what
 
 ## Icarus Investments
 
-Icarus Investments is a (fictional) upstart in the financial industry poised to revolutionize how data/AI.
+***Icarus Investments is a (fictitious) upstart in the fintech industry poised to revolutionize how data and AI are used.*** They are an early adopter of composable data systems.
 
 ## Data product goals
 
 Critical to Icarus’s commercial offering is their internal data platform, which is responsible for several data products:
 
-1. **Lakehouse:** modern lakehouse architecture using the best composable data OSS tools
-2. **Business intelligence:** analytics and insights based on historical data
-3. **Predictive intelligence:** analytics and insights based on current data
+1. **Lakehouse**: modern lakehouse architecture using the best composable data OSS tools
+2. **Business intelligence**: reactive analytics and insights
+3. **Predictive intelligence**: proactive analytics and insights
 
 ## Data & AI team
 
 The data and AI team consists of:
 
-- the data engineer
-- the data analyst
-- the machine learning engineer
+- **Data engineers**: responsible for the lakehouse
+- **Data analysts**: responsible for business intelligence
+- **Machine learning engineers**: responsible for predictive intelligence
 
 # how
 
 ## Architecture
 
-tbd
+We use composable open standards with an emphasis on Python.
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![layers](img/layers.png)
+:::
+
+::: {.column width="50%"}
+1. ***UI***: **Ibis** or SQL or dplyr
+2. ***Engine***: **DuckDB** or any other Ibis backend
+3. ***Storage***: **Delta Lake** or Iceberg or Hudi
+:::
+
+::::
+
+It should be trivial for a data team to swap out any of these components for another.
+
+## It's just Python code
+
+The solution accelerator is just Python code, making it easy to fork and customize.
+
+```{python}
+#| echo: true
+import os
+import ibis
+import ibis.selectors as s
+
+from rich import print
+
+ibis.options.interactive = True
+```
+
+**Note**: infrastructure setup is out of scope.
+
+## Steps
+
+1. Seed data
+    - **metadata**: sufficient metadata to generate interesting synthetic data
+2. Synthetic data generation
+    - **batch**: generate historical data for backfilling
+    - **streaming**: generate realtime data for streaming
+3. ETL-style data DAG using medallion architecture
+    - **bronze**: ingested raw data
+    - **silver**: cleaned and normalized data
+    - **gold**: aggregated data for downstream consumption
+4. Downstream data products
+    - **BI**: business intelligence (dashboards)
+    - **PI**: predictive intelligence (ML projects)
+
+## seed data
+
+Stored as a Python dictionary.
+
+```{python}
+from icarus_investments.seed import data
+
+print(data)
+```
+
+Note this could come from any Ibis backend. Of course, to use your own data swap out the seed and synthetic data with your own tables.
+
+## synthetic data
+
+Use table-valued UDFs to generate synthetic data.
+
+```{python}
+from icarus_investments.dag.config import (
+    DATA_DIR,
+    RAW_DATA_DIR,
+    RAW_BUY_SELL_TABLE,
+    RAW_SOCIAL_MEDIA_TABLE,
+)
+
+data_glob = os.path.join(DATA_DIR, RAW_DATA_DIR, RAW_BUY_SELL_TABLE, "*.parquet")
+buy_sell_table = ibis.read_parquet(data_glob)
+buy_sell_table
+```
+
+## synthetic data
+
+Use table-valued UDFs to generate synthetic data.
+
+```{python}
+data_glob = os.path.join(DATA_DIR, RAW_DATA_DIR, RAW_SOCIAL_MEDIA_TABLE, "*.parquet")
+social_media_table = ibis.read_parquet(data_glob)
+social_media_table
+```
+
+## data lake + catalog
+
+Transform the raw data into a lakehouse.
+
+```{python}
+from icarus_investments.dag.config import BRONZE, SILVER, GOLD
+from icarus_investments.catalog import Catalog
+
+catalog = Catalog()
+catalog.list_groups()
+```
+
+```{python}
+catalog.list_tables(SILVER)
+```
+
+```{python}
+t = catalog.table("silver_buy_sell")
+t
+```
+
+# todos
+
+## Help needed
+
+We need to:
+
+- [ ] [finalize tables and schemas for synthetic data](https://github.com/lostmygithubaccount/icarus-investments/issues/1)
+    - [ ] IbisRT requirements
+    - [ ] IbisML requirements
+    - [ ] Ibis Theseus requirements (scale up)
+- [ ] [implement synthetic data generation with interesting patterns](https://github.com/lostmygithubaccount/icarus-investments/issues/2)
+    - [ ] batch/backfill
+    - [ ] streaming
+- [ ] [implement BI (dashboards)](https://github.com/lostmygithubaccount/icarus-investments/issues/3)
+    - [ ] historical
+    - [ ] realtime
+- [ ] [implement PI (IbisML project)](https://github.com/lostmygithubaccount/icarus-investments/issues/4)
+
+## Looking forward
+
+Some ideas include:
+
+- add geospatial data and operations
+- add a website/documentation
+- setup proper data catalog
+- setup Ibis Substrait demonstration (computational storage?)
+- setup hybrid execution optimizer demonstration
+- numerous engineering best practices

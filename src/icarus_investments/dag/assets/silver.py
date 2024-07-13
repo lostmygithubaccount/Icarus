@@ -36,7 +36,7 @@ def silver_buy_sell(bronze_buy_sell):
     )
 
     # postprocessing
-    silver_buy_sell = bronze_buy_sell.pipe(postprocess)
+    silver_buy_sell = silver_buy_sell.pipe(postprocess)
 
     return silver_buy_sell
 
@@ -52,6 +52,6 @@ def silver_social_media(bronze_social_media):
     silver_social_media = silver_social_media.unpack("social_media_post")
 
     # postprocessing
-    silver_social_media = bronze_social_media.pipe(postprocess)
+    silver_social_media = silver_social_media.pipe(postprocess)
 
     return silver_social_media

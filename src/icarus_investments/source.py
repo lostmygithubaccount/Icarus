@@ -142,16 +142,20 @@ def gen_buy_sell_batch(seed_table=seed_table):
                 trend=seed_table["trend"],
             )
         )
-    ).drop("name", "base_price", "shares_total", "trend")
+    ).drop("sector", "name", "base_price", "shares_total", "trend")
 
     _write_batch(buy_sell_data, RAW_BUY_SELL_TABLE)
 
 
 def gen_social_media_batch(seed_table=seed_table):
-    social_media_data = seed_table.select("ticker", "sector").mutate(
-        social_media_post=_social_media_post(
-            ticker=seed_table["ticker"], sector=seed_table["sector"]
+    social_media_data = (
+        seed_table.select("ticker", "sector")
+        .mutate(
+            social_media_post=_social_media_post(
+                ticker=seed_table["ticker"], sector=seed_table["sector"]
+            )
         )
+        .drop("sector")
     )
 
     _write_batch(social_media_data, RAW_SOCIAL_MEDIA_TABLE)

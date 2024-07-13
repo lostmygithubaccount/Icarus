@@ -4,6 +4,7 @@ datalake
 
 .quarto
 pres.html
+pres.ipynb
 pres_files
 
 /.quarto/

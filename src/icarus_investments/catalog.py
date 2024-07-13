@@ -18,7 +18,7 @@ class Catalog:
     def list_tables(self, group):
         return [d.split(".")[0] for d in os.listdir(os.path.join(self.data_dir, group))]
 
-    def table(self, table_name, group_name):
-        return ibis.read_delta(
-            f"{DATA_DIR}/{group_name}/{group_name}_{table_name}.delta"
-        )
+    def table(self, table_name, group_name=None):
+        if group_name is None:
+            group_name = table_name.split("_")[0].upper()
+        return ibis.read_delta(f"{DATA_DIR}/{group_name}/{table_name}.delta")
