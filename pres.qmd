@@ -30,10 +30,9 @@ Separate the query UI from the query engine.
 
 ## Production implementations
 
-Composable data systems:
+Composable data systems have general consensus on usefulness...
 
 ::: {.incremental}
-- general agreeement on usefulness...
 - ...but a lack of production implementations
 - we are in a 0 to 1 phase
 - a good reference implementation accelerates real solutions
@@ -235,3 +234,6 @@ Some ideas include:
 - setup Ibis Substrait demonstration (computational storage?)
 - setup hybrid execution optimizer demonstration
 - numerous engineering best practices
+- Ibis Birdbrain 2.0 demonstration
+
+# the end
