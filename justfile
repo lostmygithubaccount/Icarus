@@ -46,8 +46,12 @@ release:
 clean-dist:
     @rm -rf dist
 
-# preview
-preview:
+# docs-build
+docs-build:
+    @quarto render website
+
+# docs-preview
+docs-preview:
     @quarto preview website
 
 # app
