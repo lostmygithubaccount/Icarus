@@ -2,3 +2,5 @@
 ruff
 build
 nbclient
+
+-r requirements.txt

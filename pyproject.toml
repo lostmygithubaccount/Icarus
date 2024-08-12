@@ -5,11 +5,14 @@ build-backend = "hatchling.build"
 [tool.hatch.metadata]
 allow-direct-references = true
 
+[tool.hatch.build.targets.wheel]
+packages = ["src/icarus"]
+
 [project]
-name = "icarus-investments"
+name = "icarus-cds"
 version = "0.1.0"
 authors = [{ name = "Cody", email = "cody@dkdc.dev" }]
-description = "Composable data system template project"
+description = "Python composable data stack solution accelerator"
 readme = "readme.md"
 requires-python = ">=3.9"
 classifiers = [
@@ -18,24 +21,33 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
-    'gcsfs',
-    'ibis-framework[duckdb,deltalake]==9.1.0',
-    'typer',
+    # secret management
     'python-dotenv',
-    'plotly',
-    'streamlit',
-    'great-tables',
+    # cli
+    'typer',
+    # cloud
+    'gcsfs',
+    # data
+    'ibis-framework[duckdb,polars,deltalake]',
+    'Faker',
+    # orchestration
     'dagster',
     'dagster-webserver',
-    'Faker',
+    # visualization
+    'plotly',
+    'great-tables',
+    # dashboards and apps
+    'shiny',
+    'shinywidgets',
+    'shinyswatch',
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/lostmygithubaccount/icarus-investments"
-"Bug Tracker" = "https://github.com/lostmygithubaccount/icarus-investments/issues"
+"Homepage" = "https://github.com/lostmygithubaccount/Icarus"
+"Bug Tracker" = "https://github.com/lostmygithubaccount/Icarus/issues"
 
 [project.scripts]
-icarus = "icarus_investments.cli:app"
+icarus = "icarus.cli:app"
 
 [tool.ruff]
 extend-include = ["*.ipynb"]

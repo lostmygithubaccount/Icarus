@@ -1,0 +1,105 @@
+---
+title: "Icarus Synthetic Data"
+subtitle: "***Realistic synthetic data at any scale.***"
+execute:
+  echo: true
+format:
+  revealjs:
+    # preview-links: true
+    chalkboard: true
+    # https://quarto.org/docs/presentations/revealjs/themes.html#using-themes
+    theme: sky
+    scrollable: true
+---
+
+# why
+
+# what
+
+# how
+
+## It's just Python code
+
+Icarus Synthetic Data is just Python code, making it easy to fork and customize.
+
+```{python}
+#| echo: true
+import os
+import ibis
+import ibis.selectors as s
+
+from rich import print
+
+ibis.options.interactive = True
+```
+
+```{python}
+# | echo: false
+import os
+import sys
+
+os.chdir(os.path.abspath(os.path.join(os.getcwd(), "..", "..", "..")))
+```
+
+## Steps
+
+1. Seed data
+    - **metadata**: sufficient metadata to generate interesting synthetic data
+2. Synthetic data generation
+    - **batch**: generate historical data for backfilling
+    - **streaming**: generate realtime data for streaming
+
+## seed data
+
+Stored as a Python dictionary.
+
+```{python}
+from icarus.investments.dag.assets.seed import data
+
+print(data)
+```
+
+Note this could come from any Ibis backend. Of course, to use your own data swap out the seed and synthetic data with your own tables.
+
+## synthetic data
+
+Use table-valued UDFs to generate synthetic data.
+
+```{python}
+from icarus.investments.dag.config import (
+    DATA_DIR,
+    BRONZE,
+    SILVER,
+    GOLD,
+    RAW_DATA_DIR,
+    RAW_BUY_SELL_TABLE,
+    RAW_SOCIAL_MEDIA_TABLE,
+)
+```
+
+The data must:
+
+- be random and infinitely generatable
+- contain interesting statistical patterns for downstream use cases 
+
+## synthetic data
+
+Use table-valued UDFs to generate synthetic data.
+
+```{python}
+data_glob = os.path.join(DATA_DIR, RAW_DATA_DIR, RAW_BUY_SELL_TABLE, "*.parquet")
+buy_sell_table = ibis.read_parquet(data_glob)
+buy_sell_table
+```
+
+## synthetic data
+
+Use table-valued UDFs to generate synthetic data.
+
+```{python}
+data_glob = os.path.join(DATA_DIR, RAW_DATA_DIR, RAW_SOCIAL_MEDIA_TABLE, "*.parquet")
+social_media_table = ibis.read_parquet(data_glob)
+social_media_table
+```
+
+# the end

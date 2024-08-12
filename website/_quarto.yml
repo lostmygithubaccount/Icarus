@@ -1,0 +1,39 @@
+project:
+  type: website
+  output-dir: _output
+
+# website
+website:
+  # basics
+  title: "Icarus"
+  #site-url: https://lostmygithubaccount.github.io/Icarus
+  description: "soaring beyond limits"
+  #favicon: logo.png
+  search: false
+
+  # options
+  reader-mode: false
+  twitter-card: true
+  back-to-top-navigation: true
+  repo-url: https://github.com/lostmygithubaccount/Icarus
+
+  # nav
+  navbar:
+    #logo: logo.png
+    left:
+      - onboarding.qmd
+      - slides.qmd
+
+  # footer
+  page-footer:
+    border: false
+    center: "Icarus"
+    right:
+      - icon: github
+        href: https://github.com/lostmygithubaccount/Icarus
+
+# theme
+format:
+  html:
+    theme: sketchy
+    toc: true

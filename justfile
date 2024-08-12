@@ -4,11 +4,12 @@
 set dotenv-load
 
 # variables
-module := "icarus_investments.dag"
-package := "icarus-investments"
+module := "icarus.investments.dag"
+package := "icarus-cds"
 
 # aliases
 alias fmt:=format
+alias install:=setup
 
 # list justfile recipes
 default:
@@ -22,11 +23,6 @@ build:
 # setup
 setup:
     @pip install -r dev-requirements.txt
-    just install
-
-# install
-install:
-    @pip install -e .
 
 # uninstall
 uninstall:
@@ -50,29 +46,10 @@ release:
 clean-dist:
     @rm -rf dist
 
-# clean lake
-clean-lake:
-    @rm -rf datalake/bronze
-    @rm -rf datalake/silver
-    @rm -rf datalake/gold
+# preview
+preview:
+    @quarto preview website
 
-# clean raw
-clean-raw:
-    @rm -rf datalake/raw
-
-# clean data
-clean-data:
-    just clean-raw
-    just clean-lake
-
-# open-dag
-open-dag:
-    @open http://127.0.0.1:3000/asset-groups
-
-# config
-config:
-    @code src/icarus_investments/dag/config.py
-
-# pres
-pres:
-    @quarto preview pres.qmd
+# app
+app:
+    @shiny run apps/main.py -b 
