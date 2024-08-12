@@ -23,7 +23,7 @@ build:
 # setup
 setup:
     @pip install uv
-    @uv pip install -r dev-requirements.txt
+    @uv pip install -r dev-requirements.txt --system
 
 # uninstall
 uninstall:

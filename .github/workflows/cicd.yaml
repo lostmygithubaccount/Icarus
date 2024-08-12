@@ -9,6 +9,7 @@ on:
     branches:
       - main
     paths:
+      - 'justfile'
       - 'website/**'
       - '.github/workflows/cicd.yaml'
 
