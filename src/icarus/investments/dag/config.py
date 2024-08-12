@@ -1,8 +1,8 @@
 # configuration file for the data DAG
-DAG_MODULE = "icarus_investments.dag"
+DAG_MODULE = "icarus.investments.dag"
 
 CLOUD = False
-BUCKET = "icarus-investments"
+BUCKET = "icarus"
 
 DATA_DIR = "datalake"
 RAW_DATA_DIR = "_raw"

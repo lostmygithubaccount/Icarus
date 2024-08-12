@@ -1,0 +1,8 @@
+---
+title: Slides
+listing:
+  contents: slides
+  type: table
+  sort:
+    - "title asc"
+---

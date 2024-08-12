@@ -1,0 +1,43 @@
+# Onboarding
+
+Welcome to Icarus!
+
+## Setup
+
+Clone the repo:
+
+```bash
+gh repo clone lostmygithubaccount/Icarus
+```
+
+Change into it:
+    
+```bash
+cd Icarus
+```
+
+## Installation
+
+Setup a Python virtual environment (an exercise left to the reader).
+
+::: {.panel-tabset}
+
+## just (recommended)
+
+[Install `just`](https://github.com/casey/just). Then:
+
+```bash
+just setup
+```
+
+## pip
+
+Run:
+
+```bash
+pip install -r requirements.txt
+```
+
+:::
+
+Then the `icarus` CLI is available. Use it to generate data and run stuff.

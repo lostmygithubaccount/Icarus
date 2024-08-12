@@ -1,0 +1,55 @@
+---
+title: "Icarus"
+subtitle: "***Soaring beyond limits.***"
+execute:
+  echo: true
+format:
+  revealjs:
+    # preview-links: true
+    chalkboard: true
+    # https://quarto.org/docs/presentations/revealjs/themes.html#using-themes
+    theme: sky
+    scrollable: true
+---
+
+# why
+
+## Icarus
+
+At Icarus, we use our expertise in Python and composable data systems to rapidly prototype and deploy data products in new verticals.
+
+## Composable data systems
+
+Promising, but largely unimplemented.
+
+![layers](../img/layers.png)
+
+## UIs and engines
+
+Separate the query UI from the query engine.
+
+![UI to engine](../img/ui-to-engine.png)
+
+# what
+
+## Data & AI teams
+
+Data and AI teams at Icarus consist of:
+
+- **Data engineers**: responsible for the lakehouse
+- **Data analysts**: responsible for business intelligence
+- **Machine learning engineers**: responsible for predictive intelligence
+
+## Icarus Consulting
+
+Icarus Consulting offers consulting services for implementing composable data stacks.
+
+## Icarus Synthetic Data
+
+Icarus Synthetic Data generates realistic synthetic data.
+
+## Icarus Investments
+
+Icarus Investments uses historical and predictive analytics to recommend investments.
+
+# the end

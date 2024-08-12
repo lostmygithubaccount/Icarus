@@ -1,23 +1,23 @@
 import typer
 import subprocess
 
-from icarus_investments.source import (
+from icarus.synthetic_data import (
     gen_buy_sell_batch,
     gen_social_media_batch,
 )
-from icarus_investments.dag.config import DAG_MODULE
+from icarus.investments.dag.config import DAG_MODULE
 
 TYPER_KWARGS = {
     "no_args_is_help": True,
     "add_completion": False,
     "context_settings": {"help_option_names": ["-h", "--help"]},
 }
-app = typer.Typer(help="icarus", **TYPER_KWARGS)
+app = typer.Typer(help="Icarus", **TYPER_KWARGS)
 
 
 @app.command()
-def gen_data():
-    """Generate source data."""
+def gen():
+    """Generate synthetic data."""
     try:
         typer.echo("generating data...")
         while True:

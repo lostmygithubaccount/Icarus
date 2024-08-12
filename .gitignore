@@ -2,9 +2,4 @@
 datalake
 *.excalidraw
 
-.quarto
-pres.html
-pres.ipynb
-pres_files
-
-/.quarto/
+_output
