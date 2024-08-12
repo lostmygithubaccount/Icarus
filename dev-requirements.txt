@@ -1,6 +1,7 @@
 #uv
 ruff
 build
+ipython
 nbclient
 
 -r requirements.txt
