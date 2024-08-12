@@ -65,7 +65,7 @@ Note this could come from any Ibis backend. Of course, to use your own data swap
 
 Use table-valued UDFs to generate synthetic data.
 
-```{python}
+```{.python}
 from icarus.investments.dag.config import (
     DATA_DIR,
     BRONZE,
@@ -86,7 +86,7 @@ The data must:
 
 Use table-valued UDFs to generate synthetic data.
 
-```{python}
+```{.python}
 data_glob = os.path.join(DATA_DIR, RAW_DATA_DIR, RAW_BUY_SELL_TABLE, "*.parquet")
 buy_sell_table = ibis.read_parquet(data_glob)
 buy_sell_table
@@ -96,7 +96,7 @@ buy_sell_table
 
 Use table-valued UDFs to generate synthetic data.
 
-```{python}
+```{.python}
 data_glob = os.path.join(DATA_DIR, RAW_DATA_DIR, RAW_SOCIAL_MEDIA_TABLE, "*.parquet")
 social_media_table = ibis.read_parquet(data_glob)
 social_media_table
