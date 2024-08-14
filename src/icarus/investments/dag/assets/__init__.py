@@ -2,7 +2,7 @@
 from dagster import load_assets_from_modules
 
 from icarus.investments.dag.assets import bronze, silver, gold
-from icarus.investments.dag.config import BRONZE, SILVER, GOLD
+from icarus.config import BRONZE, SILVER, GOLD
 
 # load assets
 bronze_modules = [bronze]

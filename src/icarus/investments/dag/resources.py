@@ -3,7 +3,7 @@ import ibis
 import gcsfs
 
 from dagster import ConfigurableIOManager
-from icarus.investments.dag.config import BRONZE, CLOUD, BUCKET, DATA_DIR
+from icarus.config import BRONZE, CLOUD, BUCKET, DATA_DIR
 
 
 # define data catalog

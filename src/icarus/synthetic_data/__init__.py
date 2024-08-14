@@ -7,7 +7,7 @@ import ibis.expr.datatypes as dt
 from faker import Faker
 from datetime import datetime
 
-from icarus.investments.dag.config import (
+from icarus.config import (
     DATA_DIR,
     RAW_DATA_DIR,
     RAW_BUY_SELL_TABLE,

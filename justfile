@@ -10,6 +10,7 @@ package := "icarus-cds"
 # aliases
 alias fmt:=format
 alias install:=setup
+alias preview:=docs-preview
 
 # list justfile recipes
 default:
@@ -21,9 +22,9 @@ build:
     @python -m build
 
 # setup
-setup:
+setup *args:
     @pip install uv
-    @uv pip install -r dev-requirements.txt --system
+    @uv pip install -r dev-requirements.txt {{args}}
 
 # uninstall
 uninstall:

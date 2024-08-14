@@ -6,7 +6,7 @@ from icarus.synthetic_data import (
     gen_buy_sell_batch,
     gen_social_media_batch,
 )
-from icarus.investments.dag.config import (
+from icarus.config import (
     DAG_MODULE,
     DATA_DIR,
     RAW_DATA_DIR,

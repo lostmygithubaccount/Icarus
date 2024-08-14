@@ -1,6 +1,6 @@
 from dagster import define_asset_job, AssetSelection
 
-from icarus.investments.dag.config import BRONZE, SILVER, GOLD
+from icarus.config import BRONZE, SILVER, GOLD
 
 # define asset jobs
 all_job = define_asset_job("all_assets")
