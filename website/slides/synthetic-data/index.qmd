@@ -54,52 +54,9 @@ os.chdir(os.path.abspath(os.path.join(os.getcwd(), "..", "..", "..")))
 Stored as a Python dictionary.
 
 ```{python}
-from icarus.investments.dag.assets.seed import data
+from icarus.synthetic_data.seed import data
 
 print(data)
 ```
 
 Note this could come from any Ibis backend. Of course, to use your own data swap out the seed and synthetic data with your own tables.
-
-## synthetic data
-
-Use table-valued UDFs to generate synthetic data.
-
-```{.python}
-from icarus.config import (
-    DATA_DIR,
-    BRONZE,
-    SILVER,
-    GOLD,
-    RAW_DATA_DIR,
-    RAW_BUY_SELL_TABLE,
-    RAW_SOCIAL_MEDIA_TABLE,
-)
-```
-
-The data must:
-
-- be random and infinitely generatable
-- contain interesting statistical patterns for downstream use cases 
-
-## synthetic data
-
-Use table-valued UDFs to generate synthetic data.
-
-```{.python}
-data_glob = os.path.join(DATA_DIR, RAW_DATA_DIR, RAW_BUY_SELL_TABLE, "*.parquet")
-buy_sell_table = ibis.read_parquet(data_glob)
-buy_sell_table
-```
-
-## synthetic data
-
-Use table-valued UDFs to generate synthetic data.
-
-```{.python}
-data_glob = os.path.join(DATA_DIR, RAW_DATA_DIR, RAW_SOCIAL_MEDIA_TABLE, "*.parquet")
-social_media_table = ibis.read_parquet(data_glob)
-social_media_table
-```
-
-# the end
