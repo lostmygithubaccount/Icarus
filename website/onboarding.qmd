@@ -18,27 +18,17 @@ cd Icarus
 
 ## Installation
 
-Setup a Python virtual environment (an exercise left to the reader).
-
-::: {.panel-tabset}
-
-## just (recommended)
-
 [Install `just`](https://github.com/casey/just). Then:
 
 ```bash
 just setup
 ```
 
-## pip
-
-Run:
+And activate the virtual environment:
 
 ```bash
-pip install -r requirements.txt
+. .venv/bin/activate
 ```
-
-:::
 
 Then the `icarus` CLI is available. Use it to generate data and run stuff.
 
