@@ -35,5 +35,5 @@ website:
 # theme
 format:
   html:
-    # theme: sketchy
+    theme: default
     toc: true
