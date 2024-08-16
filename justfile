@@ -4,7 +4,6 @@
 set dotenv-load
 
 # variables
-module := "icarus.investments.dag"
 package := "icarus-cds"
 
 # aliases
