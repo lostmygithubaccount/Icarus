@@ -1,0 +1,128 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Icarus",
+    "section": "",
+    "text": "Soaring beyond limits.\nTrusted by the world’s leading organizations including:\n\nContoso\nAcme Corporation\nNorthwind Traders\nAdventureWorks\nUmbrella Corporation\nInitech\nCyberdyne Systems\nStark Industries\nHooli\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "slides.html",
+    "href": "slides.html",
+    "title": "Slides",
+    "section": "",
+    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\nIcarus\n\n\n \n\n\n\n\nIcarus Synthetic Data\n\n\n \n\n\n\n\n\nNo matching items\n\n Back to top"
+  },
+  {
+    "objectID": "slides/overview/index.html#icarus",
+    "href": "slides/overview/index.html#icarus",
+    "title": "Icarus",
+    "section": "Icarus",
+    "text": "Icarus\nAt Icarus, we use our expertise in Python and composable data systems to rapidly prototype and deploy data products in new verticals."
+  },
+  {
+    "objectID": "slides/overview/index.html#composable-data-systems",
+    "href": "slides/overview/index.html#composable-data-systems",
+    "title": "Icarus",
+    "section": "Composable data systems",
+    "text": "Composable data systems\nPromising, but largely unimplemented.\n\nlayers"
+  },
+  {
+    "objectID": "slides/overview/index.html#uis-and-engines",
+    "href": "slides/overview/index.html#uis-and-engines",
+    "title": "Icarus",
+    "section": "UIs and engines",
+    "text": "UIs and engines\nSeparate the query UI from the query engine.\n\nUI to engine"
+  },
+  {
+    "objectID": "slides/overview/index.html#data-ai-teams",
+    "href": "slides/overview/index.html#data-ai-teams",
+    "title": "Icarus",
+    "section": "Data & AI teams",
+    "text": "Data & AI teams\nData and AI teams at Icarus consist of:\n\nData engineers: responsible for the lakehouse\nData analysts: responsible for business intelligence\nMachine learning engineers: responsible for predictive intelligence"
+  },
+  {
+    "objectID": "slides/overview/index.html#icarus-consulting",
+    "href": "slides/overview/index.html#icarus-consulting",
+    "title": "Icarus",
+    "section": "Icarus Consulting",
+    "text": "Icarus Consulting\nIcarus Consulting offers consulting services for implementing composable data stacks."
+  },
+  {
+    "objectID": "slides/overview/index.html#icarus-synthetic-data",
+    "href": "slides/overview/index.html#icarus-synthetic-data",
+    "title": "Icarus",
+    "section": "Icarus Synthetic Data",
+    "text": "Icarus Synthetic Data\nIcarus Synthetic Data generates realistic synthetic data."
+  },
+  {
+    "objectID": "slides/overview/index.html#icarus-investments",
+    "href": "slides/overview/index.html#icarus-investments",
+    "title": "Icarus",
+    "section": "Icarus Investments",
+    "text": "Icarus Investments\nIcarus Investments uses historical and predictive analytics to recommend investments."
+  },
+  {
+    "objectID": "slides/synthetic-data/index.html#its-just-python-code",
+    "href": "slides/synthetic-data/index.html#its-just-python-code",
+    "title": "Icarus Synthetic Data",
+    "section": "It’s just Python code",
+    "text": "It’s just Python code\nIcarus Synthetic Data is just Python code, making it easy to fork and customize.\n\nimport os\nimport ibis\nimport ibis.selectors as s\n\nfrom rich import print\n\nibis.options.interactive = True"
+  },
+  {
+    "objectID": "slides/synthetic-data/index.html#steps",
+    "href": "slides/synthetic-data/index.html#steps",
+    "title": "Icarus Synthetic Data",
+    "section": "Steps",
+    "text": "Steps\n\nSeed data\n\nmetadata: sufficient metadata to generate interesting synthetic data\n\nSynthetic data generation\n\nbatch: generate historical data for backfilling\nstreaming: generate realtime data for streaming"
+  },
+  {
+    "objectID": "slides/synthetic-data/index.html#seed-data",
+    "href": "slides/synthetic-data/index.html#seed-data",
+    "title": "Icarus Synthetic Data",
+    "section": "seed data",
+    "text": "seed data\nStored as a Python dictionary.\n\nfrom icarus.synthetic_data.seed import data\n\nprint(data)\n\n{\n    'tickers': [\n        {\n            'ticker': 'AAI',\n            'type': 'tech',\n            'name': \"Athena's AI\",\n            'shares_total': 10000000,\n            'base_price': 100.0,\n            'trend': 'down'\n        },\n        {\n            'ticker': 'SUBS',\n            'type': 'tech',\n            'name': 'SubWay Cloud',\n            'shares_total': 100000000,\n            'base_price': 150.0,\n            'trend': 'up'\n        },\n        {\n            'ticker': 'II',\n            'type': 'tech',\n            'name': 'Icarus Investments',\n            'shares_total': 500000,\n            'base_price': 3000.0,\n            'trend': 'flat'\n        },\n        {\n            'ticker': 'IBIS',\n            'type': 'service',\n            'name': 'Interior Basics In Season',\n            'shares_total': 1000000,\n            'base_price': 1000.0,\n            'trend': 'down'\n        },\n        {\n            'ticker': 'VODA',\n            'type': 'service',\n            'name': \"Voyage's Offices, Doors, and Accessories\",\n            'shares_total': 1000000,\n            'base_price': 2500.0,\n            'trend': 'up'\n        }\n    ]\n}\n\n\n\nNote this could come from any Ibis backend. Of course, to use your own data swap out the seed and synthetic data with your own tables."
+  },
+  {
+    "objectID": "onboarding.html",
+    "href": "onboarding.html",
+    "title": "Onboarding",
+    "section": "",
+    "text": "Welcome to Icarus!\n\n\nClone the repo:\ngh repo clone lostmygithubaccount/Icarus\nChange into it:\ncd Icarus\n\n\n\nInstall just. Then:\njust setup\nAnd activate the virtual environment:\n. .venv/bin/activate\nThen the icarus CLI is available. Use it to generate data and run stuff.\n\n\n\nRun:\nicarus gen\n\n\n\nRun:\nicarus etl\n\n\n\nRun:\nicarus app"
+  },
+  {
+    "objectID": "onboarding.html#setup",
+    "href": "onboarding.html#setup",
+    "title": "Onboarding",
+    "section": "",
+    "text": "Clone the repo:\ngh repo clone lostmygithubaccount/Icarus\nChange into it:\ncd Icarus"
+  },
+  {
+    "objectID": "onboarding.html#installation",
+    "href": "onboarding.html#installation",
+    "title": "Onboarding",
+    "section": "",
+    "text": "Install just. Then:\njust setup\nAnd activate the virtual environment:\n. .venv/bin/activate\nThen the icarus CLI is available. Use it to generate data and run stuff."
+  },
+  {
+    "objectID": "onboarding.html#generating-synthetic-data",
+    "href": "onboarding.html#generating-synthetic-data",
+    "title": "Onboarding",
+    "section": "",
+    "text": "Run:\nicarus gen"
+  },
+  {
+    "objectID": "onboarding.html#running-etl",
+    "href": "onboarding.html#running-etl",
+    "title": "Onboarding",
+    "section": "",
+    "text": "Run:\nicarus etl"
+  },
+  {
+    "objectID": "onboarding.html#open-application",
+    "href": "onboarding.html#open-application",
+    "title": "Onboarding",
+    "section": "",
+    "text": "Run:\nicarus app"
+  }
+]
