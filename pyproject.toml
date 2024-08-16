@@ -34,9 +34,9 @@ dependencies = [
     'plotly',
     'great-tables',
     # dashboards and apps
-    'shiny',
-    'shinywidgets',
-    'shinyswatch',
+    'shiny>=1.0.0',
+    'shinywidgets>=0.3.3',
+    'shinyswatch>=0.7.0',
 ]
 
 [project.urls]

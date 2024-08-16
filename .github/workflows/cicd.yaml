@@ -34,7 +34,9 @@ jobs:
         run: just setup
 
       - name: build site
-        run: just docs-build
+        run: |
+          source .venv/bin/activate
+          just docs-build
 
       - name: deploy
         uses: peaceiris/actions-gh-pages@v3

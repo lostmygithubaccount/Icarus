@@ -22,7 +22,10 @@ build:
 
 # setup
 setup *args:
-    @pip install --upgrade -r dev-requirements.txt {{args}}
+    @pip install uv
+    @uv venv
+    @source .venv/bin/activate
+    @uv pip install --upgrade --resolution=highest -r dev-requirements.txt {{args}}
 
 # uninstall
 uninstall:
