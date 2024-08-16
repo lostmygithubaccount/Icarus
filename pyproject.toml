@@ -10,7 +10,7 @@ packages = ["src/icarus"]
 
 [project]
 name = "icarus-cds"
-version = "0.1.0"
+version = "0.2.0"
 authors = [{ name = "Cody", email = "cody@dkdc.dev" }]
 description = "Python composable data stack solution accelerator"
 readme = "readme.md"
@@ -30,9 +30,6 @@ dependencies = [
     # data
     'ibis-framework[duckdb,polars,deltalake]',
     'Faker',
-    # orchestration
-    'dagster',
-    'dagster-webserver',
     # visualization
     'plotly',
     'great-tables',

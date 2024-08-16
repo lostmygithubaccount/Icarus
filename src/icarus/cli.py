@@ -2,17 +2,16 @@ import os
 import typer
 import subprocess
 
-from icarus.synthetic_data import (
-    gen_buy_sell_batch,
-    gen_social_media_batch,
-)
 from icarus.config import (
-    DAG_MODULE,
     DATA_DIR,
     RAW_DATA_DIR,
-    BRONZE,
-    SILVER,
-    GOLD,
+    BUY_SELL_TABLE,
+    SOCIAL_MEDIA_TABLE,
+)
+from icarus.investments.run import main as run_main
+from icarus.synthetic_data.investments import (
+    gen_buy_sell_batch,
+    gen_social_media_batch,
 )
 
 TYPER_KWARGS = {
@@ -41,8 +40,8 @@ def check_raw_data_exists() -> bool:
 
 def check_data_lake_exists() -> bool:
     # check that the data lake exists
-    for metal in [BRONZE, SILVER, GOLD]:
-        if not os.path.exists(os.path.join(DATA_DIR, metal)):
+    for table in [BUY_SELL_TABLE, SOCIAL_MEDIA_TABLE]:
+        if not os.path.exists(os.path.join(DATA_DIR, table)):
             typer.echo("run `icarus run` first or use `--override`!")
             return False
     return True
@@ -65,21 +64,8 @@ def gen():
 
 
 @app.command()
-def gui():
-    """Start the dagster webserver/GUI."""
-    cmd = f"dagster dev -m {DAG_MODULE}"
-    subprocess.call(cmd, shell=True)
-
-
-@app.command()
+@app.command("etl", hidden=True)
 def run(
-    job_name: str = typer.Option(
-        "all_assets",
-        "--job-name",
-        "-j",
-        help="Name of the job to run",
-        show_default=True,
-    ),
     override: bool = typer.Option(
         False, "--override", "-o", help="Override checks", show_default=True
     ),
@@ -90,9 +76,8 @@ def run(
     if not override and not check_raw_data_exists():
         return
 
-    # materialize all assets
-    cmd = f"dagster job execute -j {job_name} -m {DAG_MODULE}"
-    subprocess.call(cmd, shell=True)
+    # run the ETL job
+    run_main()
 
 
 @app.command("app")
@@ -113,10 +98,10 @@ def clean_lake(
     if not override and not check_data_lake_exists():
         return
 
-    medals = [BRONZE, SILVER, GOLD]
+    tables = [BUY_SELL_TABLE, SOCIAL_MEDIA_TABLE]
 
-    for metal in medals:
-        cmd = f"rm -rf {os.path.join(DATA_DIR, metal)}/"
+    for table in tables:
+        cmd = f"rm -rf {os.path.join(DATA_DIR, table)}/"
         typer.echo(f"running: {cmd}...")
         subprocess.call(cmd, shell=True)
 

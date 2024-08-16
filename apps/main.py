@@ -8,26 +8,26 @@ from shiny.express import input, ui
 
 from datetime import datetime, timedelta
 
-from icarus.investments.dag.resources import Catalog
+from icarus.catalog import Catalog
 
+# px.defaults.template = "plotly_dark"
+
+# load data
 catalog = Catalog()
 
-buy_sell_t = catalog.table("gold_buy_sell")
-social_media_t = catalog.table("gold_social_media")
-
-# dark themes
-# px.defaults.template = "plotly_dark"
-ui.page_opts(theme=theme.sketchy)
+buy_sell_t = catalog.table("buy_sell")
+social_media_t = catalog.table("social_media")
 
 # page options
 ui.page_opts(
     title="Icarus Investments",
+    # theme=theme.sketchy(),
     fillable=False,
     full_width=True,
 )
 
 # add page title and sidebar
-with ui.sidebar(open="desktop"):
+with ui.sidebar(open="always"):
     ui.input_date_range(
         "date_range",
         "Date range",
@@ -49,6 +49,27 @@ with ui.nav_panel("Whatever"):
         @render.express
         def total_rows():
             f"{buy_sell_t.count().to_pyarrow().as_py():,}"
+
+    with ui.card(full_screen=True):
+        "Rows by ticker"
+
+        @render_plotly
+        def bar_tickers():
+            t = (
+                buy_sell_data()
+                .group_by("ticker")
+                .agg(count=ibis._.count())
+                .order_by(ibis.desc("count"))
+            )
+
+            c = px.bar(
+                t,
+                x="ticker",
+                y="count",
+                color="ticker",
+            )
+
+            return c
 
     with ui.card(full_screen=True):
         "Some data"
