@@ -34,9 +34,8 @@ jobs:
         run: just setup
 
       - name: build site
-        shell: bash
         run: |
-          source .venv/bin/activate
+          . .venv/bin/activate
           just docs-build
 
       - name: deploy
