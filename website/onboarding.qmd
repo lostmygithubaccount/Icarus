@@ -30,7 +30,7 @@ And activate the virtual environment:
 . .venv/bin/activate
 ```
 
-Then the `icarus` CLI is available. Use it to generate data and run stuff.
+The `icarus` CLI is now available.
 
 ## Generating synthetic data
 

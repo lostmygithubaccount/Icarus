@@ -1,3 +1,4 @@
+# imports
 import os
 import typer
 import subprocess
@@ -15,18 +16,21 @@ from icarus.synthetic_data.investments import (
     gen_social_media_batch,
 )
 
+# typer settings
 TYPER_KWARGS = {
     "no_args_is_help": True,
     "add_completion": False,
     "context_settings": {"help_option_names": ["-h", "--help"]},
 }
+
+# typer apps
 app = typer.Typer(help="Icarus", **TYPER_KWARGS)
 clean_app = typer.Typer(help="Clean the data lake.", **TYPER_KWARGS)
 
-## add subcommands
+# add subcommands
 app.add_typer(clean_app, name="clean")
 
-## add subcommand aliases
+# add subcommand aliases
 app.add_typer(clean_app, name="c", hidden=True)
 
 
@@ -50,6 +54,7 @@ def check_data_lake_exists() -> bool:
     return True
 
 
+# commands
 @app.command()
 def gen():
     """Generate synthetic data."""
@@ -80,6 +85,7 @@ def run(
         return
 
     # run the ETL job
+    typer.echo("running ETL job...")
     run_main()
 
 
@@ -87,6 +93,7 @@ def run(
 def main_app():
     """Open the app."""
     cmd = "shiny run -b apps/main.py"
+    typer.echo(f"running: {cmd}...")
     subprocess.call(cmd, shell=True)
 
 

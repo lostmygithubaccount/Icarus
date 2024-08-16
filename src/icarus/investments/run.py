@@ -11,6 +11,7 @@ from icarus.investments.transform import (
 )
 
 
+# functions
 def main():
     # instantiate catalog
     catalog = Catalog()
