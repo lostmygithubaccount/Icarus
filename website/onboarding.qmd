@@ -41,3 +41,27 @@ pip install -r requirements.txt
 :::
 
 Then the `icarus` CLI is available. Use it to generate data and run stuff.
+
+## Generating synthetic data
+
+Run:
+
+```bash
+icarus gen
+```
+
+## Running ETL
+
+Run:
+
+```bash
+icarus etl
+```
+
+## Open application
+
+Run:
+
+```bash
+icarus app
+```

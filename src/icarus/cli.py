@@ -124,11 +124,12 @@ def clean_raw(
     if not override and not check_raw_data_exists():
         return
 
+    cmd = f"rm -rf {os.path.join(DATA_DIR, RAW_DATA_DIR)}/"
+    typer.echo(f"running: {cmd}...")
+
     if confirm:
         typer.confirm("Are you sure you want to delete the raw data?", abort=True)
 
-    cmd = f"rm -rf {os.path.join(DATA_DIR, RAW_DATA_DIR)}/"
-    typer.echo(f"running: {cmd}...")
     subprocess.call(cmd, shell=True)
 
 
