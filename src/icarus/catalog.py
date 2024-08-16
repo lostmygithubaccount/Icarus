@@ -5,8 +5,12 @@ from icarus.config import CLOUD, BUCKET, DATA_DIR
 
 
 # functions
+def delta_table_filename(table_name: str) -> str:
+    return f"{table_name}.delta"
+
+
 def delta_table_path(table_name: str) -> str:
-    return os.path.join(DATA_DIR, f"{table_name}.delta")
+    return os.path.join(DATA_DIR, delta_table_filename(table_name))
 
 
 def read_table(table_name: str) -> ibis.Table:

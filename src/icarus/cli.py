@@ -8,6 +8,7 @@ from icarus.config import (
     BUY_SELL_TABLE,
     SOCIAL_MEDIA_TABLE,
 )
+from icarus.catalog import delta_table_filename
 from icarus.investments.run import main as run_main
 from icarus.synthetic_data.investments import (
     gen_buy_sell_batch,
@@ -40,7 +41,9 @@ def check_raw_data_exists() -> bool:
 
 def check_data_lake_exists() -> bool:
     # check that the data lake exists
-    for table in [BUY_SELL_TABLE, SOCIAL_MEDIA_TABLE]:
+    tables = [BUY_SELL_TABLE, SOCIAL_MEDIA_TABLE]
+    tables = [delta_table_filename(table) for table in tables]
+    for table in tables:
         if not os.path.exists(os.path.join(DATA_DIR, table)):
             typer.echo("run `icarus run` first or use `--override`!")
             return False
@@ -99,6 +102,7 @@ def clean_lake(
         return
 
     tables = [BUY_SELL_TABLE, SOCIAL_MEDIA_TABLE]
+    tables = [delta_table_filename(table) for table in tables]
 
     for table in tables:
         cmd = f"rm -rf {os.path.join(DATA_DIR, table)}/"
