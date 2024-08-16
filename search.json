@@ -88,7 +88,7 @@
     "href": "onboarding.html",
     "title": "Onboarding",
     "section": "",
-    "text": "Welcome to Icarus!\n\n\nClone the repo:\ngh repo clone lostmygithubaccount/Icarus\nChange into it:\ncd Icarus\n\n\n\nInstall just. Then:\njust setup\nAnd activate the virtual environment:\n. .venv/bin/activate\nThen the icarus CLI is available. Use it to generate data and run stuff.\n\n\n\nRun:\nicarus gen\n\n\n\nRun:\nicarus etl\n\n\n\nRun:\nicarus app"
+    "text": "Welcome to Icarus!\n\n\nClone the repo:\ngh repo clone lostmygithubaccount/Icarus\nChange into it:\ncd Icarus\n\n\n\nInstall just. Then:\njust setup\nAnd activate the virtual environment:\n. .venv/bin/activate\nThe icarus CLI is now available.\n\n\n\nRun:\nicarus gen\n\n\n\nRun:\nicarus etl\n\n\n\nRun:\nicarus app"
   },
   {
     "objectID": "onboarding.html#setup",
@@ -102,7 +102,7 @@
     "href": "onboarding.html#installation",
     "title": "Onboarding",
     "section": "",
-    "text": "Install just. Then:\njust setup\nAnd activate the virtual environment:\n. .venv/bin/activate\nThen the icarus CLI is available. Use it to generate data and run stuff."
+    "text": "Install just. Then:\njust setup\nAnd activate the virtual environment:\n. .venv/bin/activate\nThe icarus CLI is now available."
   },
   {
     "objectID": "onboarding.html#generating-synthetic-data",
