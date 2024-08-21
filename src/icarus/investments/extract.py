@@ -11,6 +11,8 @@ from icarus.config import (
 )
 
 # set extracted_at timestamp
+# note we don't use ibis.now() to ensure it's the same...
+# ...for all tables/rows on a given run
 extracted_at = datetime.utcnow().isoformat()
 
 

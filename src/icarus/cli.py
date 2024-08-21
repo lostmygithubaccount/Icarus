@@ -24,7 +24,7 @@ TYPER_KWARGS = {
 }
 
 # typer apps
-app = typer.Typer(help="Icarus", **TYPER_KWARGS)
+app = typer.Typer(help="Icarus: soaring beyond limits.", **TYPER_KWARGS)
 clean_app = typer.Typer(help="Clean the data lake.", **TYPER_KWARGS)
 
 # add subcommands
