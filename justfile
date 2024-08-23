@@ -59,3 +59,7 @@ docs-preview:
 # app
 app:
     @shiny run apps/main.py -b 
+
+# open
+open:
+    @open https://lostmygithubaccount.github.io/Icarus
