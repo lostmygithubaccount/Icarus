@@ -1,4 +1,4 @@
-name: cicd
+name: docs
 
 permissions:
   contents: write
@@ -11,8 +11,9 @@ on:
     paths:
       - 'justfile'
       - 'website/**'
+      - 'pyproject.toml'
       - 'dev-requirements.txt'
-      - '.github/workflows/cicd.yaml'
+      - '.github/workflows/docs.yaml'
 
 jobs:
   deploy:
@@ -31,8 +32,11 @@ jobs:
 
       - uses: quarto-dev/quarto-actions/setup@v2
 
+      - name: setup uv
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh
+
       - name: install requirements
-        run: pip install uv && just setup
+        run: just setup
 
       - name: build site
         run: |

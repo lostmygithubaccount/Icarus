@@ -4,33 +4,26 @@ Welcome to Icarus!
 
 ## Setup
 
-Clone the repo:
+::: {.panel-tabset}
+
+## Development
+
+Install [`gh`](https://github.com/cli/cli) and [`just`](https://github.com/casey/just) and [`uv`](https://github.com/astral-sh/uv), then:
 
 ```bash
-gh repo clone lostmygithubaccount/Icarus
-```
-
-Change into it:
-    
-```bash
+gh repo clone ibis-project/Icarus
 cd Icarus
-```
-
-## Installation
-
-[Install `just`](https://github.com/casey/just). Then:
-
-```bash
 just setup
-```
-
-And activate the virtual environment:
-
-```bash
 . .venv/bin/activate
 ```
 
-The `icarus` CLI is now available.
+## Pip
+
+```bash
+pip install icarus-cds
+```
+
+:::
 
 ## Generating synthetic data
 
@@ -40,12 +33,12 @@ Run:
 icarus gen
 ```
 
-## Running ETL
+## Running a project
 
 Run:
 
 ```bash
-icarus etl
+icarus run
 ```
 
 ## Open application

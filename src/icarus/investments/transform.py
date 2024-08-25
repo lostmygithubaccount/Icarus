@@ -23,25 +23,23 @@ def postprocess(t: ibis.Table) -> ibis.Table:
 
 
 # data assets
-def buy_sell(bronze_buy_sell):
+def buy_sell(t: ibis.Table) -> ibis.Table:
     """Transform ticker buy/sell data."""
 
     def transform(t):
         t = t.mutate(t["buy_sell"].unnest()).unpack("buy_sell")
         return t
 
-    buy_sell = bronze_buy_sell.pipe(preprocess).pipe(transform).pipe(postprocess)
+    buy_sell = t.pipe(preprocess).pipe(transform).pipe(postprocess)
     return buy_sell
 
 
-def social_media(bronze_social_media):
+def social_media(t: ibis.Table) -> ibis.Table:
     """Transform ticker social media data."""
 
     def transform(t):
         t = t.unpack("social_media_post")
         return t
 
-    social_media = (
-        bronze_social_media.pipe(preprocess).pipe(transform).pipe(postprocess)
-    )
+    social_media = t.pipe(preprocess).pipe(transform).pipe(postprocess)
     return social_media

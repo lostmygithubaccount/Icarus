@@ -1,0 +1,159 @@
+---
+error: True
+---
+
+# Exploratory data analysis (EDA)
+
+Use this notebook to explore and visualize the data.
+
+```{python}
+import os
+import ibis
+import ibis.selectors as s
+
+import plotly.express as px
+
+from icarus.config import (
+    DATA_DIR,
+    RAW_DATA_DIR,
+    BUY_SELL_TABLE,
+    SOCIAL_MEDIA_TABLE,
+)
+from icarus.catalog import Catalog
+from icarus.synthetic_data.investments import fake, seed_table
+
+px.defaults.template = "plotly_dark"
+ibis.options.interactive = True
+```
+
+```{python}
+f"{10_000_000_000 / (60 * 60 * 24):,.2f}"
+```
+
+```{python}
+lookback = ibis.interval(days=1)
+step = ibis.interval(seconds=1)
+```
+
+```{python}
+t = (
+    ibis.range(ibis.now() - lookback, ibis.now(), step=step)
+    .unnest()
+    .name("timestamp")
+    .as_table()
+    .mutate(
+        index=(ibis.row_number().over(order_by="timestamp")),
+        symbol=ibis.random(),
+        bid=ibis.random(),
+        bid_size=ibis.random(),
+        ask=ibis.random(),
+        ask_size=ibis.random(),
+        **{c: 2 * (ibis.random() - 0.5) for c in ["a", "b", "c"]},
+        **{
+            c: ibis.null(type=str)
+            for c in list(map(chr, range(ord("d"), ord("z") + 1)))
+        },
+    )
+    .relocate("index", "timestamp")
+)
+t
+```
+
+```{python}
+import random
+
+symbols = [chr(i) for i in range(ord("A"), ord("Z") + 1)]
+symbols = [
+    f"{a}{b}{c}{d}" for a in symbols for b in symbols for c in symbols for d in symbols
+]
+symbols = random.sample(symbols, 500)
+symbols[:5]
+```
+
+```{python}
+symbols_case = ibis.case()
+for i, symbol in enumerate(symbols):
+    symbols_case = symbols_case.when(
+        (i / len(symbols) < ibis._["symbol"])
+        & (ibis._["symbol"] < ((i + 1) / len(symbols))),
+        symbol,
+    )
+symbols_case = symbols_case.else_(ibis.null()).end()
+```
+
+```{python}
+t = t.mutate(
+    symbol=symbols_case,
+    bid_size=(ibis._["bid_size"] * 1000).cast("int64"),
+    ask_size=(ibis._["ask_size"] * 1000).cast("int64"),
+)
+t
+```
+
+```{python}
+t
+```
+
+```{python}
+seed_table
+```
+
+```{python}
+catalog = Catalog()
+catalog.list_tables()
+```
+
+```{python}
+seed_table
+```
+
+```{python}
+data_glob = os.path.join(DATA_DIR, RAW_DATA_DIR, BUY_SELL_TABLE, "*.parquet")
+bs = ibis.read_parquet(data_glob)
+bs
+```
+
+```{python}
+bs = catalog.table("buy_sell")
+bs
+```
+
+```{python}
+t = bs.group_by("ticker").agg(count=ibis._.count()).order_by(ibis.desc("count"))
+t
+```
+
+```{python}
+px.bar(
+    t,
+    x="ticker",
+    y="count",
+    title="Number of trades per symbol",
+    color="ticker",
+)
+```
+
+```{python}
+bs.count()
+```
+
+```{python}
+bs["location"].value_counts()
+```
+
+```{python}
+f"{bs.count().to_pyarrow().as_py():,}"
+```
+
+```{python}
+data_glob = os.path.join(DATA_DIR, RAW_DATA_DIR, SOCIAL_MEDIA_TABLE, "*.parquet")
+sm = ibis.read_parquet(data_glob)
+sm
+```
+
+```{python}
+sm = catalog.table("social_media")
+sm
+```
+
+

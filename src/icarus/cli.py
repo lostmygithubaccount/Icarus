@@ -6,11 +6,13 @@ import subprocess
 from icarus.config import (
     DATA_DIR,
     RAW_DATA_DIR,
+    PENGUINS_TABLE,
     BUY_SELL_TABLE,
     SOCIAL_MEDIA_TABLE,
 )
 from icarus.catalog import delta_table_filename
-from icarus.investments.run import main as run_main
+from icarus.penguins.run import main as penguins_run_main
+from icarus.investments.run import main as investments_run_main
 from icarus.synthetic_data.investments import (
     gen_buy_sell_batch,
     gen_social_media_batch,
@@ -25,13 +27,16 @@ TYPER_KWARGS = {
 
 # typer apps
 app = typer.Typer(help="Icarus: soaring beyond limits.", **TYPER_KWARGS)
+run_app = typer.Typer(help="Run the ETL job.", **TYPER_KWARGS)
 clean_app = typer.Typer(help="Clean the data lake.", **TYPER_KWARGS)
 
 # add subcommands
 app.add_typer(clean_app, name="clean")
+app.add_typer(run_app, name="run")
 
 # add subcommand aliases
 app.add_typer(clean_app, name="c", hidden=True)
+app.add_typer(run_app, name="r", hidden=True)
 
 
 # helper functions
@@ -71,9 +76,8 @@ def gen():
         typer.echo(f"error: {e}")
 
 
-@app.command()
-@app.command("etl", hidden=True)
-def run(
+@run_app.command()
+def penguins(
     override: bool = typer.Option(
         False, "--override", "-o", help="Override checks", show_default=True
     ),
@@ -86,7 +90,24 @@ def run(
 
     # run the ETL job
     typer.echo("running ETL job...")
-    run_main()
+    penguins_run_main()
+
+
+@run_app.command()
+def investments(
+    override: bool = typer.Option(
+        False, "--override", "-o", help="Override checks", show_default=True
+    ),
+):
+    """Run ETL."""
+
+    # ensure raw data exists
+    if not override and not check_raw_data_exists():
+        return
+
+    # run the ETL job
+    typer.echo("running ETL job...")
+    investments_run_main()
 
 
 @app.command("app")
@@ -108,7 +129,7 @@ def clean_lake(
     if not override and not check_data_lake_exists():
         return
 
-    tables = [BUY_SELL_TABLE, SOCIAL_MEDIA_TABLE]
+    tables = [PENGUINS_TABLE, BUY_SELL_TABLE, SOCIAL_MEDIA_TABLE]
     tables = [delta_table_filename(table) for table in tables]
 
     for table in tables:
